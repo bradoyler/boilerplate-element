@@ -1,12 +1,12 @@
-# &lt;my-element&gt;
+# &lt;weather-el&gt;
 
 TODO: Write a project description
 
-> Maintained by [Your Name](https://github.com/yourname).
+> Maintained by [Brad Oyler](https://github.com/bradoyler).
 
 ## Demo
 
-> [Check it live](http://customelements.github.io/boilerplate-element).
+> [Check it live](http://bradoyler.github.io/weather-el).
 
 ## Usage
 
@@ -19,13 +19,13 @@ TODO: Write a project description
 2. Import Custom Element:
 
 	```html
-	<link rel="import" href="src/my-element.html">
+	<link rel="import" href="src/weather-el.html">
 	```
 
 3. Start using it!
 
 	```html
-	<my-element></my-element>
+	<weather-el></weather-el>
 	```
 
 ## Options
