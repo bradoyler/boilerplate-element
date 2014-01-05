@@ -60,5 +60,6 @@ Attribute  | Options                   | Default             | Description
 	* Started project using [boilerplate-element](https://github.com/customelements/boilerplate-element)
 
 ## License
-
 [MIT License](http://opensource.org/licenses/MIT)
+
+[Inspired by wu-weather](https://github.com/Polymer/wu-weather)
