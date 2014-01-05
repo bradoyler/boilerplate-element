@@ -13,7 +13,13 @@ TODO: Write a project description
 1. Import Web Components' polyfill:
 
 	```html
-	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.0.20130711/polymer.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.1/platform.js"></script>
+	```
+
+	or
+
+	```console
+		$ bower install
 	```
 
 2. Import Custom Element:
