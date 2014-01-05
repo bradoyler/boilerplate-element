@@ -83,14 +83,13 @@ license that can be found in the LICENSE file.
     <h1 class="location">
       {{current.display_location.full}}
     </h1>
-    <template bind="{{current}}">
-      <span class="current-icon weathericon" data-icon="{{theme.icon}}"></span>
-      <div class="weather">{{weather}}</div>
-      <div class="temperature">{{temperature_string}}</div>
-    </template>
-    <polymer-jsonp id="jsonp_current" handleAs="json" response="{{currentConditionsResponse}}"></polymer-jsonp> 
+      <span class="current-icon weathericon" data-icon="{{current.theme.icon}}"></span>
+      <div class="weather">{{current.weather}}</div>
+      <div class="temperature">{{current.temperature_string}}</div>
+      <polymer-jsonp id="jsonp_current" handleAs="json" response="{{currentConditionsResponse}}"></polymer-jsonp>  
+     </div>
   </template>
-  </div>
+
   <script>
     Polymer('weather-el', {
       position: null,
@@ -139,6 +138,7 @@ license that can be found in the LICENSE file.
       },
 
       getTheme: function(icon) {
+        
         var theme = {"name":"theme-", "icon":"m"};
 
         if(icon === "sunny"){
@@ -160,6 +160,9 @@ license that can be found in the LICENSE file.
           theme.icon = "p"; theme.name="theme-storms";
         }
         else if(icon.indexOf("hail")> -1){
+          theme.icon = "x"; theme.name="theme-hail";
+        }
+        else if(icon.indexOf("sleet")> -1){
           theme.icon = "x"; theme.name="theme-hail";
         }
         else if(icon === "clear" || icon === "mostly clear")
