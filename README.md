@@ -8,18 +8,21 @@ TODO: Write a project description
 
 > [Check it live](http://bradoyler.github.io/weather-el).
 
+## Run locally (Mac)
+
+```console
+		$ git clone https://github.com/bradoyler/weather-el.git
+		$ cd weather-el
+		$ bower install
+		$ python -m SimpleHTTPServer
+```
+
 ## Usage
 
 1. Import Web Components' polyfill:
 
 	```html
 	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.1/platform.js"></script>
-	```
-
-	or
-
-	```console
-		$ bower install
 	```
 
 2. Import Custom Element:
