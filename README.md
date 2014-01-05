@@ -1,31 +1,37 @@
-# &lt;my-element&gt;
+# &lt;weather-el&gt;
 
 TODO: Write a project description
 
-> Maintained by [Your Name](https://github.com/yourname).
+> Maintained by [Brad Oyler](https://github.com/bradoyler).
 
 ## Demo
 
-> [Check it live](http://customelements.github.io/boilerplate-element).
+> [Check it live](http://bradoyler.github.io/weather-el).
 
 ## Usage
 
 1. Import Web Components' polyfill:
 
-	```xml
-	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.0.20130816/polymer.min.js"></script>
+	```html
+	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.1/platform.js"></script>
+	```
+
+	or
+
+	```console
+		$ bower install
 	```
 
 2. Import Custom Element:
 
-	```xml
-	<link rel="import" href="src/my-element.html">
+	```html
+	<link rel="import" href="src/weather-el.html">
 	```
 
 3. Start using it!
 
-	```xml
-	<my-element></my-element>
+	```html
+	<weather-el></weather-el>
 	```
 
 ## Options
