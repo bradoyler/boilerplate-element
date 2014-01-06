@@ -9,6 +9,19 @@
 	
     <script src="bower_components/platform/platform.js"></script>
     <link rel="import" href="bower_components/polymer-jsonp/polymer-jsonp.html"/>
+    <style type="text/css">
+    	weather-el{
+    		display:block; 
+    		border: 1px solid #ccc; 
+    		border-radius: 7px;
+    		max-width: 320px; 
+    		margin: auto;
+    	}
+
+    	weather-el > div.container {
+    		border-radius: 6px;
+    	}
+    </style>
 
 	<!--<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.1/platform.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.1/polymer.js"></script>
@@ -17,7 +30,7 @@
 	<link rel="import" href="src/weather-el.html">
 </head>
 <body>
-
+	<div style="width:160px; margin:auto; font-size: 1.4rem; text-align:center">Demo of &lt;weather-el&gt;</div>
 	<!-- Using Custom Elements -->
 	<weather-el></weather-el>
 

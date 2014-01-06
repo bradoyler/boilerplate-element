@@ -1,6 +1,7 @@
 # &lt;weather-el&gt;
 
-TODO: Write a project description
+A card-style weather panel. Uses icon fonts and the weatherunderground API. 
+[screenshot](http://bradoyler.github.io/weather-el/screenshot.png)
 
 > Maintained by [Brad Oyler](https://github.com/bradoyler).
 
@@ -22,7 +23,8 @@ TODO: Write a project description
 1. Import Web Components' polyfill:
 
 	```html
-	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.1/platform.js"></script>
+	 <script src="bower_components/platform/platform.js"></script>
+     <link rel="import" href="bower_components/polymer-jsonp/polymer-jsonp.html"/>
 	```
 
 2. Import Custom Element:
@@ -41,9 +43,7 @@ TODO: Write a project description
 
 Attribute  | Options                   | Default             | Description
 ---        | ---                       | ---                 | ---
-`foo`      | *string*                  | `bar`               | Lorem ipsum
-`bar`      | `abc`, `def`, `ghi` 	   | `foo`               | Lorem ipsum
-`height`   | *int*                     | `100`               | Lorem ipsum
+`autoupdate`      | *string*                  | `true`               | Updates the current weather every 60 secs
 
 
 ## Contributing

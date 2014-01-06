@@ -21,20 +21,23 @@
 		    text-transform: uppercase;
       	font-family: "proxima_nova_rgregular","Helvetica Neue", Helvetica,Arial,sans-serif;
         font-size: 1.5rem;
-        padding-top: 1.5rem;
-		    padding-bottom: 1.5rem;
-    		padding-right: 15px;
-    		padding-left: 15px;
-    		max-width: 320px;
+        padding:9px; 
+        padding-bottom: 0px;
+     }
+      
+      .theme-sunny{
+        background-color: #f2b83e; color: #fff;
       }
 
       .theme-clear{
-        color: #fff;
-        background-color: #91B9DD;
+        background-color: #91B9DD; color: #fff;
       }
 
       .time{
+        width: 155px;
       	margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
     		margin-bottom: 0.3rem;
     		font-size: 0.85rem;
     		line-height: 1.25rem;
@@ -50,9 +53,10 @@
       .temperature, .weather {
         font-size: large;
       }
-      .current-icon {
+      .current-weathericon {
         float: left;
         margin-right: 10px;
+        padding-bottom: 10px;
       }
       .forecast {
         clear: both;
@@ -66,29 +70,49 @@
       .forecast-day div {
         font-size: small;
       }
-      .weathericon:before {
+      .current-weathericon:before {
         font-family: 'MeteoconsRegular';
-        font-size: 3rem;
+        font-size: 4.8rem;
         content: attr(data-icon);
       }
+      a:visited {
+        color: #4D4D4D;
+      }
+      a {
+        text-decoration: none;
+        color: #4D4D4D;
+      }
+      .weather-source {
+        padding-top: 9px;
+        font-size: 0.625rem;
+        line-height: 1rem;
+        opacity: 0.6;
+        width: 112px;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0px;
+      }
+
     </style>
     <div class="container {{current.theme.name}}">
-    	<p class="time"> {{current.localdatetime}} </p>
+    	<div class="time"> {{current.localdatetime}} </div>
     <h1 class="location">
       {{current.display_location.full}}
     </h1>
-      <span class="current-icon weathericon" data-icon="{{current.theme.icon}}"></span>
+      <span class="current-weathericon" data-icon="{{current.theme.icon}}"></span>
       <div class="weather">{{current.weather}}</div>
       <div class="temperature">{{current.temperature_string}}</div>
+      <div class="weather-source"> <a href="{{current.forecast_url}}">extended forecast</a> </div>
       <polymer-jsonp id="jsonp_current" handleAs="json" response="{{currentConditionsResponse}}"></polymer-jsonp>  
      </div>
   </template>
 
   <script>
     Polymer('weather-el', {
-      position: null,
       currentConditionsResponse: null,
-      updateInterval: 50000,
+      defaultResponse: {'icon':'sunny','weather':'Sunny','temperature_string':'NA F', 'forecast_url':'http://www.wunderground.com/US/NJ/Kingston.html', 'display_location':{'full':'location na'}},
+      updateInterval: 60000,
       apikey: '7fa854c6a8aeba73',
       position: {
         coords: {
@@ -97,6 +121,7 @@
         }
       },
       enteredView: function() {
+        console.log('weather-el.enteredView()', this);
         this.loadFromStorage();
         this.canAutoUpdate = true;
         this.autoupdateChanged();
@@ -111,43 +136,36 @@
         // Discard stored data if it's too old.
         if (!cached ||
             (new Date() - cached.timestamp) > (60 * 60 * 1000)) {
-          this.positionChanged();
-          this.updatePosition();
+           this.positionChanged();
+           this.updatePosition();
           return;
         }
         this.current = cached.current;
       },
       saveToStorage: function() {
-        if (this.current) {
-        	var _current = this.current;
-        	_current.localdatetime=dateFormat(new Date(), "ddd, mmm dd h:MM TT");
-          _current.theme= this.getTheme(this.current.icon);
-          _current.weathericon= "e";
+        	this.current.localdatetime=dateFormat(new Date(), "ddd, mmm dd h:MM TT");
+          this.current.theme= this.getTheme(this.current.icon);
           var data = {
-            current: _current,
+            current: this.current,
             timestamp: new Date().getTime()
           };
+          console.log('## localStorage set', data);
           localStorage.setItem('wu-weather-data', JSON.stringify(data));
-        }
       },
 
       getTheme: function(icon) {
         
-        var theme = {"name":"theme-", "icon":"m"};
-
+        var theme = {"name":"theme-"+icon, "icon":"m"};
         if(icon === "sunny"){
            theme.icon = "b"; theme.name = "theme-sunny";
         }
-        else if(icon === "mostly sunny")
-        {
+        else if(icon === "mostly sunny"){
           theme.icon = "a"; theme.name = "theme-sunny";
         }
-        else if(icon.indexOf("cloudy")> -1)
-        {
+        else if(icon.indexOf("cloudy")> -1){
           theme.icon = "y"; theme.name = "theme-cloudy";
         }
-        else if(icon.indexOf("rain")> -1)
-        {
+        else if(icon.indexOf("rain")> -1){
           theme.icon = "r"; theme.name = "theme-rain";
         }
         else if(icon.indexOf("thunderstorm")> -1){
@@ -159,34 +177,25 @@
         else if(icon.indexOf("sleet")> -1){
           theme.icon = "x"; theme.name="theme-hail";
         }
-        else if(icon === "clear" || icon === "mostly clear")
-        {
+        else if(icon === "clear" || icon === "mostly clear"){
           theme.icon = "c"; theme.name = "theme-clear";
         }
-        else if(icon === "fair")
-        {
+        else if(icon === "fair"){
           theme.icon = "e"; theme.name = "theme-fair";
         }
-        else if(icon.indexOf("snow")> -1)
-        {
+        else if(icon.indexOf("snow")> -1){
           theme.icon = "u"; theme.name = "theme-snow";
         }
-        else if(icon.indexOf("wintry")> -1)
-        {
+        else if(icon.indexOf("wintry")> -1){
           theme.icon = "w"; theme.name = "theme-snow";
         }
-        else if(icon.indexOf("fog")> -1)
-        {
+        else if(icon.indexOf("fog")> -1){
           theme.icon = "l"; theme.name = "theme-fog";
         }
-        else if(icon.indexOf("haze")> -1)
-        {
+        else if(icon.indexOf("haze")> -1){
           theme.icon = "m"; theme.name = "theme-haze";
         }
-        else{
-          theme.icon = ""; theme.name = "theme-"+icon;
-        }
-          return theme; 
+        return theme; 
       },
       autoupdateChanged: function() {
         if (this.autoupdate && this.canAutoUpdate) {
@@ -209,14 +218,14 @@
         }
       },
       currentConditionsResponseChanged: function() {
-        this.current = this.currentConditionsResponse.current_observation;
+        this.current = this.currentConditionsResponse.current_observation || this.defaultResponse;
         this.saveToStorage();
       },
       updatePosition: function() {
         // Get the current location.
         navigator.geolocation.getCurrentPosition(
             this.getCurrentPositionSuccess.bind(this),
-            this.getCurrentPositionError.bind(this), {timeout: 10000});
+            this.getCurrentPositionError.bind(this), {timeout: 4000});
       },
       getCurrentPositionSuccess: function(position) {
         this.position = position;
