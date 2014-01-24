@@ -1,7 +1,7 @@
 # &lt;weather-el&gt;
 
 A card-style weather panel. Uses icon fonts and the weatherunderground API. 
-[screenshot](http://bradoyler.github.io/weather-el/screenshot.png)
+![screen shot 2014-01-24 at 11 16 31 am](https://f.cloud.github.com/assets/425966/1996356/07793cde-8513-11e3-984f-7c36b7f75bca.png)
 
 > Maintained by [Brad Oyler](https://github.com/bradoyler).
 
