@@ -12,6 +12,7 @@
   "description": "weather element",
   "main": "index.html",
   "keywords": [
+    "web-components",
     "weather",
     "component",
     "polymer.js"
